@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Chimera Café — Story Adventure</title>
+<style>
+:root{
+  --bg:#0c0c12; --accent:#7a4bff; --muted:#cfc7e8;
+  --chapter-locked:rgba(255,255,255,0.15);
+  --chapter-unlocked:#7a4bff;
+}
+body{margin:0; font-family:Inter,system-ui,sans-serif; background:linear-gradient(180deg,var(--bg),#161226); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:100vh;}
+header{width:100%; padding:12px 24px; display:flex; justify-content:space-between; align-items:center;}
+button{padding:8px 16px; border:none; border-radius:8px; cursor:pointer; background:var(--accent); color:#fff; font-weight:600;}
+button.ghost{background:none; border:1px solid var(--accent);}
+.coverVideo{width:90vw; max-width:720px; border-radius:12px; margin-top:12px; box-shadow:0 8px 30px rgba(122,75,255,0.2);}
+.toc{display:flex; flex-direction:column; gap:12px; margin:24px 0;}
+.chapter{padding:12px 16px; border-radius:8px; cursor:pointer; background:var(--chapter-locked); color:#ccc;}
+.chapter.unlocked{background:var(--chapter-unlocked); color:#fff;}
+.modalOverlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); z-index:20000;}
+.modal{background:linear-gradient(180deg,#1b0b2f,#241235); padding:20px; border-radius:12px; max-width:720px; width:90%; max-height:80vh; overflow:auto; position:relative;}
+.modalClose{position:absolute; top:12px; right:12px; background:none; border:none; color:#fff; font-size:18px; cursor:pointer;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Chimera Café Story</h1>
+  <button id="logoutBtn">Logout</button>
+</header>
+<video class="coverVideo" autoplay muted loop>
+  <source src="cover_animation.mp4" type="video/mp4">
+</video>
+<div class="toc" id="toc"></div>
+<div class="modalOverlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modalClose" id="modalClose">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<script>
+const STORAGE = {
+  USER:'chimera_user',
+  CHAPTERS:'chimera_chapters'
+};
+
+let username = localStorage.getItem(STORAGE.USER) || '';
+let completedChapters = JSON.parse(localStorage.getItem(STORAGE.CHAPTERS)||'{}');
+
+const chapters = [
+  {key:'miki', title:'Chapter 1: Miki', content:'Miki whispers of the first notes of the Café, music flowing through the walls.'},
+  {key:'star', title:'Chapter 2: Star', content:'Star weaves the walls from moonlight and dreams, guarding the patrons.'},
+  {key:'hans', title:'Chapter 3: Hans', content:'Hans shapes the dimensional forge, where reality folds in on itself.'},
+  {key:'chari', title:'Chapter 4: Chari', content:'Chari navigates timelines and memories, always observing.'},
+  {key:'milo', title:'Chapter 5: Milo', content:'Milo tends to the gardens, where memories bloom like herbs.'}
+];
+
+const tocEl = document.getElementById('toc');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalContent = document.getElementById('modalContent');
+const modalClose = document.getElementById('modalClose');
+const logoutBtn = document.getElementById('logoutBtn');
+
+function saveProgress(){
+  localStorage.setItem(STORAGE.CHAPTERS, JSON.stringify(completedChapters));
+}
+
+function renderTOC(){
+  tocEl.innerHTML='';
+  chapters.forEach((ch,i)=>{
+    const div = document.createElement('div');
+    div.className='chapter';
+    if(i===0 || completedChapters[chapters[i-1].key]) div.classList.add('unlocked');
+    div.textContent=ch.title;
+    div.onclick=()=>{
+      if(div.classList.contains('unlocked')) openChapter(ch);
+    };
+    tocEl.appendChild(div);
+  });
+}
+
+function openChapter(ch){
+  modalContent.innerHTML=`<p>${ch.content}</p><button id='completeChapterBtn'>Mark as Read & Unlock Next</button>`;
+  modalOverlay.style.display='flex';
+  document.getElementById('completeChapterBtn').onclick=()=>{
+    completedChapters[ch.key]=true;
+    saveProgress();
+    renderTOC();
+    modalOverlay.style.display='none';
+  };
+}
+
+modalClose.onclick=()=>{ modalOverlay.style.display='none'; };
+logoutBtn.onclick=()=>{ localStorage.removeItem(STORAGE.USER); localStorage.removeItem(STORAGE.CHAPTERS); location.reload(); };
+
+if(!username){
+  username = prompt('Enter your name to start the story') || 'Guest';
+  localStorage.setItem(STORAGE.USER, username);
+}
+
+renderTOC();
+</script>
+
+<script>
+// --- Interactive Choices System ---
+// Each chapter can present choices that lead to different dialog responses.
+// Later we can expand this into branching paths or stat changes.
+
+const chapterChoices = {
+  1: {
+    prompt: "Miki swirls a small star of blue fire in her palm. She asks: ‘Before we begin, traveler… what do you seek?’",
+    options: [
+      { text: "Wisdom", result: "Miki nods softly. ‘Then you must learn to see the threads beneath the world.’" },
+      { text: "Adventure", result: "Her tail flicks. ‘Then you’ll fit right in at the Café.’" },
+      { text: "Comfort", result: "Her eyes warm. ‘Then you’ve come to the right hearth.’" }
+    ]
+  },
+  2: {
+    prompt: "Star sits upon her woven moon-loom. She whispers: ‘If you could paint your own world… what would it be?’",
+    options: [
+      { text: "A peaceful one", result: "Star smiles sadly. ‘Peace is the truest form of art.’" },
+      { text: "A wild one", result: "‘Chaos births creation,’ she giggles." },
+      { text: "A mysterious one", result: "‘Mystery is the language of the moon.’" }
+    ]
+  }
+  // Add more chapters later
+};
+
+function renderChoices(chapterNum) {
+  const container = document.getElementById('chapterChoices');
+  if (!chapterChoices[chapterNum]) { container.innerHTML = ''; return; }
+
+  const data = chapterChoices[chapterNum];
+
+  let html = `<h3 class="choicePrompt">${data.prompt}</h3>`;
+  html += `<div class="choiceButtons">`;
+  data.options.forEach((opt, i) => {
+    html += `<button class="choiceBtn" onclick="selectChoice(${chapterNum}, ${i})">${opt.text}</button>`;
+  });
+  html += `</div>`;
+  html += `<div id="choiceResult" class="choiceResult"></div>`;
+
+  container.innerHTML = html;
+}
+
+function selectChoice(chapterNum, optionIndex) {
+  const result = chapterChoices[chapterNum].options[optionIndex].result;
+  document.getElementById('choiceResult').textContent = result;
+}
+
+// Hook into existing modal opening logic
+// After chapter text loads, we call renderChoices(currentChapter)
+
+const originalShowChapter = window.showChapter;
+window.showChapter = function(ch){
+  originalShowChapter(ch);
+  renderChoices(ch);
+};
+</script>
+
+<!-- Choice styling -->
+<style>
+.choicePrompt {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.choiceButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.choiceBtn {
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #7ca9ff;
+  color: white;
+  transition: 0.2s;
+}
+.choiceBtn:hover {
+  background: #628df0;
+}
+.choiceResult {
+  margin-top: 15px;
+  font-style: italic;
+}
+</style>
+
+<script>
+// Add a helper that other code can call when a chapter is completed
+window.markChapterComplete = function(ch){
+  const tocItem = document.querySelector(`[data-chapter="${ch}"]`);
+  if(tocItem){ tocItem.classList.add('chapterComplete'); }
+};
+</script>
+
+<style>
+/* Visual indicator for completed chapters */
+.chapterComplete {
+  opacity: 0.6;
+  background: linear-gradient(90deg, #8cffc1, #5ac58a);
+  border-left: 6px solid #2f8d58;
+  transition: 0.25s;
+}
+.chapterComplete:hover {
+  opacity: 0.75;
+}
+</style>
+</body>
+</html>
