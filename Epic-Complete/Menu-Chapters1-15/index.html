@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Starla: The Twilight Chimera Café</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    background: #1a0f1f;
+    color: #f8f5f2;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 22px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .chapter-buttons {
+    margin: 10px;
+    z-index: 10;
+  }
+  button {
+    background: #3a2448;
+    color: #f0e6f6;
+    border: 1px solid #745d85;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'IM Fell English SC', serif;
+    transition: background 0.3s;
+  }
+  button:hover {
+    background: #5b3d6f;
+  }
+  .chapter {
+    position: absolute;
+    top: 60px;
+    width: 80%;
+    max-width: 800px;
+    height: 80%;
+    padding: 40px;
+    background: rgba(30, 15, 40, 0.95);
+    border-radius: 12px;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 2s ease;
+    pointer-events: none;
+  }
+  .chapter.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .etching {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+  .chapter.active .etching {
+    opacity: 0.5;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    stroke: #b8a8c9;
+    stroke-width: 1;
+    fill: none;
+  }
+  .glow {
+    stroke: #cdb7e5;
+    filter: drop-shadow(0 0 4px #a87edb);
+    opacity: 0.5;
+  }
+  h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="chapter-buttons">
+  <!-- Generate 15 chapter buttons -->
+  <script>
+    for(let i=1;i<=15;i++){
+      document.write(`<button onclick=\"showChapter('chap${i}')\">Chapter ${i}</button>`);
+    }
+  </script>
+</div>
+
+<!-- Generate 15 chapters -->
+<div id="chap1" class="chapter"><h1>Chapter 1: Starla's Origins</h1><p>When first the cradle rocked beneath my whiskers, I did not yet know that life would be a carousel of oddities...</p><div class="etching"><svg><path class="glow" d="M10,10 Q50,50 90,10"/></svg></div></div>
+<div id="chap2" class="chapter"><h1>Chapter 2: Mothy & Cherribeau Arrive</h1><p>Mothy came first, part fox, part monk, all mischief. Cherribeau, youngest, half-rat half-cat...</p><div class="etching"><svg><path class="glow" d="M20,20 Q50,60 80,20"/></svg></div></div>
+<div id="chap3" class="chapter"><h1>Chapter 3: Parisian Beginnings</h1><p>Paris smelled of bread and rain and scandal. We wandered its cobblestones in secret...</p><div class="etching"><svg><path class="glow" d="M30,30 Q50,70 70,30"/></svg></div></div>
+<div id="chap4" class="chapter"><h1>Chapter 4: First Foster Fiasco</h1><p>The first home promised warmth but delivered monotony and shadows...</p><div class="etching"><svg><path class="glow" d="M10,80 Q50,40 90,80"/></svg></div></div>
+<div id="chap5" class="chapter"><h1>Chapter 5: Second Foster, Darker Lessons</h1><p>I learned then that some humans wield power not with hands but with expectation...</p><div class="etching"><svg><path class="glow" d="M20,80 Q50,20 80,80"/></svg></div></div>
+<div id="chap6" class="chapter"><h1>Chapter 6: The Great Escape</h1><p>Once the moon had turned thrice, we vanished—slipping between cracks, beneath doors, and into the forest...</p><div class="etching"><svg><path class="glow" d="M15,15 Q50,50 85,15"/></svg></div></div>
+<div id="chap7" class="chapter"><h1>Chapter 7: Elven Encounter</h1><p>I had always suspected magic existed. We met the elves beneath silver-barked trees...</p><div class="etching"><svg><path class="glow" d="M25,25 Q50,75 75,25"/></svg></div></div>
+<div id="chap8" class="chapter"><h1>Chapter 8: The Capture</h1><p>The idyll shattered when sorcery and science collided in cages...</p><div class="etching"><svg><path class="glow" d="M10,50 Q50,10 90,50"/></svg></div></div>
+<div id="chap9" class="chapter"><h1>Chapter 9: Life in Cages</h1><p>Every day, I mapped the patterns of our captivity...</p><div class="etching"><svg><path class="glow" d="M20,50 Q50,90 80,50"/></svg></div></div>
+<div id="chap10" class="chapter"><h1>Chapter 10: Subtle Rebellion</h1><p>We rehearsed freedom daily. Tiny rebellions: tails flicked at wrong times...</p><div class="etching"><svg><path class="glow" d="M30,50 Q50,10 70,50"/></svg></div></div>
+<div id="chap11" class="chapter"><h1>Chapter 11: Yeshua Arrives</h1><p>A miracle clothed in human flesh. Yeshua unlocked our cages...</p><div class="etching"><svg><path class="glow" d="M40,40 Q50,60 60,40"/></svg></div></div>
+<div id="chap12" class="chapter"><h1>Chapter 12: Relearning Life</h1><p>The forest in Peru was lush, a canvas of green and whispering streams...</p><div class="etching"><svg><path class="glow" d="M10,60 Q50,30 90,60"/></svg></div></div>
+<div id="chap13" class="chapter"><h1>Chapter 13: Café-Tea Shoppe</h1><p>Starla reigns. From Yeshua’s hands, I took keys and recipes...</p><div class="etching"><svg><path class="glow" d="M15,70 Q50,40 85,70"/></svg></div></div>
+<div id="chap14" class="chapter"><h1>Chapter 14: Recipes & Prose</h1><p>Rosemary leaves for courage, jasmine for mischief, a single pinch of silver moon for audacity...</p><div class="etching"><svg><path class="glow" d="M20,80 Q50,20 80,80"/></svg></div></div>
+<div id="chap15" class="chapter"><h1>Chapter 15: Reflections & Triumph</h1><p>We remember. The foster homes, the forest, the cages. They are scars, inked deep but beautiful...</p><div class="etching"><svg><path class="glow" d="M25,75 Q50,25 75,75"/></svg></div></div>
+
+<script>
+let current = null;
+function showChapter(id){
+  if(current){
+    document.getElementById(current).classList.remove('active');
+  }
+  const next = document.getElementById(id);
+  next.classList.add('active');
+  current = id;
+}
+// Load first chapter by default
+showChapter('chap1');
+</script>
+</body>
+</html>
