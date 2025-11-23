@@ -190,5 +190,25 @@ window.showChapter = function(ch){
 }
 </style>
 
+<script>
+// Add a helper that other code can call when a chapter is completed
+window.markChapterComplete = function(ch){
+  const tocItem = document.querySelector(`[data-chapter="${ch}"]`);
+  if(tocItem){ tocItem.classList.add('chapterComplete'); }
+};
+</script>
+
+<style>
+/* Visual indicator for completed chapters */
+.chapterComplete {
+  opacity: 0.6;
+  background: linear-gradient(90deg, #8cffc1, #5ac58a);
+  border-left: 6px solid #2f8d58;
+  transition: 0.25s;
+}
+.chapterComplete:hover {
+  opacity: 0.75;
+}
+</style>
 </body>
 </html>
