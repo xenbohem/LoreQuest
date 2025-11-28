@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chimera Cat Cafe - Universe</title>
+    <style>
+        /* Global Styles - Matching Previous Theme */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            background-color: #000000;
+            color: #808080;
+            overflow-y: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        /* Starstructure Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* Ombre Font Effect */
+        .ombre-text {
+            background: linear-gradient(90deg, #808080, #6495ED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2em;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Avatars */
+        #avatars {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            margin: 0 10px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #6495ED;
+            transition: border-color 0.3s ease;
+        }
+
+        .avatar:hover {
+            border-color: #ffffff;
+        }
+
+        /* Welcome */
+        #welcome {
+            font-size: 1.5em;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Music Player */
+        #music-player {
+            background: #111;
+            border: 1px solid #6495ED;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #track-list {
+            margin-bottom: 20px;
+        }
+
+        .track {
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border: 1px solid #6495ED;
+            transition: background 0.3s ease;
+        }
+
+        .track:hover, .track.active {
+            background: #6495ED;
+            color: #000000;
+        }
+
+        #controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        #controls button {
+            background: none;
+            border: 1px solid #6495ED;
+            color: #6495ED;
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.3s ease;
+        }
+
+        #controls button:hover {
+            background: #6495ED;
+            color: #000000;
+        }
+
+        #progress {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        /* Gift Icon */
+        #gift-link {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #gift-icon {
+            width: 50px;
+            height: 50px;
+            fill: #6495ED;
+            transition: fill 0.3s ease;
+            cursor: pointer;
+        }
+
+        #gift-icon:hover {
+            fill: #ffffff;
+        }
+
+        /* Support Section */
+        #support {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #support-question {
+            margin-bottom: 20px;
+        }
+
+        #download-section {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .download-link {
+            display: block;
+            margin: 10px 0;
+            color: #6495ED;
+            text-decoration: none;
+        }
+
+        .download-link:hover {
+            text-decoration: underline;
+        }
+
+        #kofi-link {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .glow {
+            box-shadow: 0 0 20px #6495ED;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #6495ED; }
+            to { box-shadow: 0 0 30px #6495ED, 0 0 40px #6495ED; }
+        }
+
+        .button {
+            background: none;
+            border: 1px solid #6495ED;
+            color: #6495ED;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background: #6495ED;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="ombre-text">Chimera Cat Cafe</h1>
+
+    <!-- Avatars (Now Links to Bio Pages) -->
+    <div id="avatars">
+        <a href="hans.html"><div class="avatar" style="background-image: url('https://via.placeholder.com/80x80?text=Hans');"></div></a>
+        <a href="miki.html"><div class="avatar" style="background-image: url('https://via.placeholder.com/80x80?text=Miki');"></div></a>
+        <a href="star.html"><div class="avatar" style="background-image: url('https://via.placeholder.com/80x80?text=Star');"></div></a>
+        <a href="chari.html"><div class="avatar" style="background-image: url('https://via.placeholder.com/80x80?text=Chari');"></div></a>
+        <a href="yeshua.html"><div class="avatar" style="background-image: url('https://via.placeholder.com/80x80?text=Yeshua');"></div></a>
+    </div>
+
+    <!-- Welcome -->
+    <div id="welcome">Welcome - <span id="user-name"></span>! Dive into the lore and play your new tracks.</div>
+
+    <!-- Music Player -->
+    <div id="music-player">
+        <div id="track-list">
+            <div class="track" data-src="Stage1.mp3">Stage1.mp3</div>
+            <div class="track" data-src="Surrender.mp3">Surrender.mp3</div>
+            <div class="track" data-src="Yeshua.mp3">Yeshua.mp3</div>
+            <div class="track" data-src="Crosstheline.mp3">Crosstheline.mp3</div>
+            <div class="track" data-src="Teatime.mp3">Teatime.mp3</div>
+            <div class="track" data-src="DinnerwithHans.mp3">DinnerwithHans.mp3</div>
+            <div class="track" data-src="StarsCoffee.mp3">StarsCoffee.mp3</div>
+        </div>
+        <div id="controls">
+            <button id="prev">Prev</button>
+            <button id="play-pause">Play</button>
+            <button id="next">Next</button>
+        </div>
+        <input type="range" id="progress" min="0" max="100" value="0">
+        <audio id="audio" preload="none"></audio>
+    </div>
+
+    <!-- Gift Icon Link -->
+    <div id="gift-link">
+        <a href="https://ko-fi.com/xen" target="_blank">
+            <svg id="gift-icon" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                <rect x="3" y="20" width="18" height="2"/>
+                <rect x="7" y="16" width="10" height="4"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Support Section -->
+    <div id="support">
+        <div id="support-question">Would you like to support the game by donating a gift to the creator Xen?</div>
+        <button class="button" onclick="handleSupport('yes')">Yes</button>
+        <button class="button" onclick="handleSupport('no')">No</button>
+        <div id="download-section">
+            <p>As a gift for your support, download any of these tracks:</p>
+            <a class="download-link" href="Stage1.mp3" download>Download Stage1.mp3</a>
+            <a class="download-link" href="Surrender.mp3" download>Download Surrender.mp3</a>
+            <a class="download-link" href="Yeshua.mp3" download>Download Yeshua.mp3</a>
+            <a class="download-link" href="Crosstheline.mp3" download>Download Crosstheline.mp3</a>
+            <a class="download-link" href="Teatime.mp3" download>Download Teatime.mp3</a>
+            <a class="download-link" href="DinnerwithHans.mp3" download>Download DinnerwithHans.mp3</a>
+            <a class="download-link" href="StarsCoffee.mp3" download>Download StarsCoffee.mp3</a>
+        </div>
+        <div id="kofi-link">
+            <a href="https://ko-fi.com/xen" target="_blank" class="button glow">Donate to Xen on Ko-fi</a>
+        </div>
+    </div>
+
+    <script>
+        // Get user's name from URL parameter (passed from previous page)
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('name') || 'Adventurer';
+        document.getElementById('user-name').textContent = userName;
+
+        // Music Player Logic
+        const audio = document.getElementById('audio');
+        const tracks = document.querySelectorAll('.track');
+        const playPauseBtn = document.getElementById('play-pause');
+        const progressBar = document.getElementById('progress');
+        let currentTrackIndex = 0;
+
+        // Auto-start first track
+        setTimeout(() => {
+            loadTrack(0);
+            audio.play();
+            playPauseBtn.textContent = 'Pause';
+        }, 1000);
+
+        function loadTrack(index) {
+            tracks.forEach(t => t.classList.remove('active'));
+            tracks[index].classList.add('active');
+            audio.src = tracks[index].dataset.src;
+            audio.load();
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = 'Pause';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = 'Play';
+            }
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            loadTrack(currentTrackIndex);
+            audio.play();
+            playPauseBtn.textContent = 'Pause';
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrackIndex);
+            audio.play();
+            playPauseBtn.textContent = 'Pause';
+        });
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', () => {
+                currentTrackIndex = index;
+                loadTrack(index);
+                audio.play();
+                playPauseBtn.textContent = 'Pause';
+            });
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            progressBar.value = (audio.currentTime / audio.duration) * 100;
+        });
+
+        progressBar.addEventListener('input', () => {
+            audio.currentTime = (progressBar.value / 100) * audio.duration;
+        });
+
+        // Support Logic
+        function handleSupport(choice) {
+            if (choice === 'yes') {
+                document.getElementById('support-question').style.display = 'none';
+                document.querySelectorAll('#support .button').forEach(btn => btn.style.display = 'none');
+                document.getElementById('download-section').style.display = 'block';
+                document.getElementById('kofi-link').style.display = 'block';
+            } else {
+                document.getElementById('support-question').textContent = 'Thanks for playing!';
+                document.querySelectorAll('#support .button').forEach(btn => btn.style.display = 'none');
+            }
+        }
+    </script>
+</body>
+</html>
