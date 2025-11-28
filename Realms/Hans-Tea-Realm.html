@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hans' Tea Realm - Chimera Cat Cafe</title>
+    <style>
+        /* Global Styles - Matching Theme */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            background-color: #000000;
+            color: #808080;
+            overflow-y: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        /* Starstructure Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* Ombre Font Effect */
+        .ombre-text {
+            background: linear-gradient(90deg, #007BA7, #6495ED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2em;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Character Image */
+        #character-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid #007BA7;
+            margin: 20px 0;
+        }
+
+        /* Realm Description */
+        #realm-description {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+            max-width: 800px;
+        }
+
+        /* Products Grid */
+        #products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 80%;
+            max-width: 1000px;
+            margin: 20px 0;
+        }
+
+        .product {
+            background: #111;
+            border: 1px solid #007BA7;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .product:hover {
+            border-color: #6495ED;
+        }
+
+        .product img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product h3 {
+            margin: 10px 0;
+            color: #007BA7;
+        }
+
+        .product p {
+            margin: 10px 0;
+        }
+
+        .product a {
+            display: inline-block;
+            background: none;
+            border: 1px solid #007BA7;
+            color: #007BA7;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .product a:hover {
+            background: #007BA7;
+            color: #000000;
+        }
+
+        /* Back Button */
+        #back-button {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="ombre-text">Hans' Tea Realm</h1>
+    <div id="character-image" style="background-image: url('https://via.placeholder.com/150x150?text=Hans');"></div>
+    <div id="realm-description">
+        Welcome to Hans' realm of exquisite teas and British elegance. As a tea snob, Hans cherishes these items that elevate the art of tea-making. Explore and perhaps acquire them to honor his legacy.
+    </div>
+
+    <!-- Products -->
+    <div id="products">
+        <div class="product">
+            <img src="https://via.placeholder.com/200x200?text=Tea+Set" alt="Vintage Tea Set">
+            <h3>Vintage British Tea Set</h3>
+            <p>A classic porcelain tea set perfect for Hans' old-world charm.</p>
+            <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=youraffiliateid-20" target="_blank">Buy on Amazon</a>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/200x200?text=Earl+Grey+Tea" alt="Earl Grey Tea">
+            <h3>Premium Earl Grey Tea</h3>
+            <p>Hans' favorite blend – rich, bergamot-infused, and steeped in history.</p>
+            <a href="https://www.amazon.com/dp/B07ZPKN6ZR?tag=youraffiliateid-20" target="_blank">Buy on Amazon</a>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/200x200?text=Tea+Infuser" alt="Silver Tea Infuser">
+            <h3>Silver Tea Infuser</h3>
+            <p>An elegant infuser for brewing the perfect cup, as Hans would insist.</p>
+            <a href="https://www.amazon.com/dp/B08L8ZJ3ZJ?tag=youraffiliateid-20" target="_blank">Buy on Amazon</a>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/200x200?text=Tea+Book" alt="Book on Tea History">
+            <h3>Book: The Art of Tea</h3>
+            <p>Dive into tea history with this book Hans would quiz you on.</p>
+            <a href="https://www.amazon.com/dp/B08K2Q3Z4Z?tag=youraffiliateid-20" target="_blank">Buy on Amazon</a>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div id="back-button">
+        <a href="universe.html" class="product a">Return to Cafe</a>
+    </div>
+</body>
+</html>
