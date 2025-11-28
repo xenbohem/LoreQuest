@@ -280,38 +280,39 @@
         let completedCharacters = [];
         const terminalMessage = "Initializing... Loading parallel universe... Access granted. Are You Ready to Play A Game?";
 
-        const dialogues = {
-            Hans: [
-                { question: "What's the origin of Earl Grey?", options: ["India", "China", "England"], correct: "England" },
-                { question: "What type of tea is typically used in Earl Grey?", options: ["Black", "Green", "Oolong"], correct: "Black" },
-                { question: "Who is credited with inventing Earl Grey?", options: ["A British Prime Minister", "A Chinese Emperor", "A French Chef"], correct: "A British Prime Minister" }
-            ],
-            Milo: [
-                { question: "What's Milo's favorite herb?", options: ["Mint", "Basil", "Lavender"], correct: "Mint" },
-                { question: "What garden does Milo tend to?", options: ["Herb garden", "Tea garden", "Flower garden"], correct: "Herb garden" },
-                { question: "What philosophies does Milo study?", options: ["Taoism and Christianity", "Buddhism and Islam", "Hinduism and Judaism"], correct: "Taoism and Christianity" }
-            ],
-            Miki: [
-                { question: "What is the origin of the Bengal cat?", options: ["Asia", "Africa", "Europe"], correct: "Asia" },
-                { question: "What breed is known for its spotted coat like a leopard?", options: ["Tabby", "Bengal", "Bombay"], correct: "Bengal" },
-                { question: "Which cat breed has a 'tortoiseshell' pattern?", options: ["Siamese", "Tortoiseshell", "Persian"], correct: "Tortoiseshell" }
-            ],
-            Star: [
-                { question: "What is the cafe's specialty drink?", options: ["Coffee", "Tea", "Smoothie"], correct: "Tea" },
-                { question: "Who owns the cafe?", options: ["Chari", "Star", "Hans"], correct: "Star" },
-                { question: "What animals are associated with the cafe?", options: ["Dogs", "Cats", "Rats"], correct: "Rats" }
-            ],
-            Chari: [
-                { question: "What does Chari know a lot about?", options: ["The cafe", "Tea", "Cats"], correct: "The cafe" },
-                { question: "Who is Chari's elder sister?", options: ["Miki", "Star", "Yeshua"], correct: "Star" },
-                { question: "What pet does Chari own?", options: ["Cat", "Rat", "Dog"], correct: "Rat" }
-            ],
-            Yeshua: [
-                { question: "What role does Yeshua play?", options: ["Gate Keeper", "Tea Snob", "Singer"], correct: "Gate Keeper" },
-                { question: "What is Yeshua known as?", options: ["Redeemer of Sins", "Vampire", "Rocker"], correct: "Redeemer of Sins" },
-                { question: "In what universe is Yeshua?", options: ["Parallel", "Earth", "Mars"], correct: "Parallel" }
-            ]
-        };
+       const dialogues = {
+    Hans: [
+        { question: "In this parallel universe, what do we 'steep' in to bridge the living and dead?", options: ["Tea leaves", "Cat fur", "Rat tails"], correct: "Tea leaves" },
+        { question: "As a British tea snob, what's my favorite blend, inspired by Parisian elegance?", options: ["Earl Grey", "Chamomile", "Green Tea"], correct: "Earl Grey" },
+        { question: "Why do I quiz you on tea history in this afterlife interim?", options: ["To brew wisdom", "To scare away rats", "To impress Miki"], correct: "To brew wisdom" }
+    ],
+    Milo: [
+        { question: "What's Milo's favorite herb?", options: ["Mint", "Basil", "Lavender"], correct: "Mint" },
+        { question: "What garden does Milo tend to?", options: ["Herb garden", "Tea garden", "Flower garden"], correct: "Herb garden" },
+        { question: "What philosophies does Milo study?", options: ["Taoism and Christianity", "Buddhism and Islam", "Hinduism and Judaism"], correct: "Taoism and Christianity" }
+    ],
+    Miki: [
+        { question: "What Chimera Cats roam this parallel universe cafe?", options: ["Bengal blends", "Tabby spirits", "Bombay ghosts"], correct: "Bengal blends" },
+        { question: "As a Parisian rocker, what's my anthem for cat activism?", options: ["Purr-fect Revolution", "Meow-tastic Mayhem", "Feline Fury"], correct: "Purr-fect Revolution" },
+        { question: "Why do I quiz you on cats in this afterlife interim?", options: ["To claw back lore", "To hiss at boredom", "To honor the cafe"], correct: "To honor the cafe" }
+    ],
+    Star: [
+        { question: "What is the cafe's specialty drink?", options: ["Coffee", "Tea", "Smoothie"], correct: "Tea" },
+        { question: "Who owns the cafe?", options: ["Chari", "Star", "Hans"], correct: "Star" },
+        { question: "What animals are associated with the cafe?", options: ["Dogs", "Cats", "Rats"], correct: "Rats" }
+    ],
+    Chari: [
+        { question: "What does Chari know a lot about?", options: ["The cafe", "Tea", "Cats"], correct: "The cafe" },
+        { question: "Who is Chari's elder sister?", options: ["Miki", "Star", "Yeshua"], correct: "Star" },
+        { question: "What pet does Chari own?", options: ["Cat", "Rat", "Dog"], correct: "Rat" }
+    ],
+    Yeshua: [
+        { question: "What role does Yeshua play?", options: ["Gate Keeper", "Tea Snob", "Singer"], correct: "Gate Keeper" },
+        { question: "What is Yeshua known as?", options: ["Redeemer of Sins", "Vampire", "Rocker"], correct: "Redeemer of Sins" },
+        { question: "In what universe is Yeshua?", options: ["Parallel", "Earth", "Mars"], correct: "Parallel" }
+    ]
+};
+
 
         const images = {
             Hans: "https://via.placeholder.com/100x100?text=Hans",
