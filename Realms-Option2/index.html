@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chimera Quest: Parallel Universe Adventure</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            background-color: #000000;
+            color: #808080;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        /* Starstructure Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* Ombre Font Effect - Updated to Cerulean to Cornflower */
+        .ombre-text {
+            background: linear-gradient(90deg, #007BA7, #6495ED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Cover Page */
+        #cover {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        #logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #007BA7, #000000);
+            cursor: pointer;
+            box-shadow: 0 0 20px #007BA7;
+            transition: box-shadow 0.3s ease;
+        }
+
+        #logo:hover {
+            box-shadow: 0 0 30px #007BA7;
+        }
+
+        /* Terminal Sequence */
+        #terminal {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #terminal-text {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background: none;
+            border: 1px solid #007BA7;
+            color: #007BA7;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background: #007BA7;
+            color: #000000;
+        }
+
+        /* Sign-Up */
+        #signup {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        input {
+            background: none;
+            border: 1px solid #007BA7;
+            color: #808080;
+            padding: 10px;
+            margin: 10px 0;
+            width: 300px;
+            font-family: inherit;
+        }
+
+        /* Game Entry */
+        #game-entry {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            clip-path: circle(0% at center);
+            transition: clip-path 1s ease;
+        }
+
+        #game-entry.open {
+            clip-path: circle(100% at center);
+        }
+
+        #story {
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 1;
+            transition: opacity 2s ease;
+        }
+
+        #story.fade-out {
+            opacity: 0;
+        }
+
+        #instructions {
+            font-size: 1em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Character Selection */
+        #character-selection {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .character {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #007BA7;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .character:hover {
+            background: #007BA7;
+            color: #000000;
+        }
+
+        .character.completed {
+            text-decoration: line-through;
+            color: #555;
+            cursor: not-allowed;
+        }
+
+        /* Dialogue */
+        #dialogue {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #character-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .speech-bubble {
+            background: #333;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .option {
+            margin: 5px;
+        }
+
+        /* Congratulation */
+        #congratulation {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div id="cover">
+        <div id="logo" onclick="startTerminal()"></div>
+    </div>
+
+    <!-- Terminal Sequence -->
+    <div id="terminal">
+        <div id="terminal-text"></div>
+        <div>
+            <button class="button" onclick="handleYes()">Yes</button>
+            <button class="button" onclick="handleNo()">No</button>
+        </div>
+    </div>
+
+    <!-- Sign-Up -->
+    <div id="signup">
+        <div id="signup-text"></div>
+        <input type="text" id="name-input" placeholder="Enter your name">
+        <input type="email" id="email-input" placeholder="Enter your email">
+        <input type="password" id="password-input" placeholder="Create a password">
+        <button class="button" onclick="enterGame()">Enter the Game</button>
+    </div>
+
+    <!-- Game Entry -->
+    <div id="game-entry">
+        <div id="story">You have just entered a parallel universe—an interim between the living and the dead, where incorruptible beings like Chimera Cats create their own realities. Watch, see, and learn what's to come next.</div>
+        <div id="instructions">Navigate by choosing options in dialogues. Your choices shape the story. Select a character to begin your quest.</div>
+        <div id="character-selection">
+            <div class="character" id="char-Hans" onclick="selectCharacter('Hans')">Vampire-Hans: A tea snob of old British ways, selective and knowledgeable about tea history.</div>
+            <div class="character" id="char-Milo" onclick="selectCharacter('Milo')">Milo-Apprentice: Kind apprentice to Yeshua, studies Taoism/Christianity, tends the herb garden.</div>
+            <div class="character" id="char-Miki" onclick="selectCharacter('Miki')">Rocker-Miki: A Parisian singer and cat activist, quizzing on cat types like Bengal, Tabby, etc.</div>
+            <div class="character" id="char-Star" onclick="selectCharacter('Star')">Star-CafeOwner: Owner of the cafe, elder sister to Chari.</div>
+            <div class="character" id="char-Chari" onclick="selectCharacter('Chari')">Chari-Introvert-RatOwner: Shy apprentice at the cafe, knows a lot about it.</div>
+            <div class="character" id="char-Yeshua" onclick="selectCharacter('Yeshua')">Yeshua-Gate Keeper: Redeemer of Sins, Jesus Christ in this universe.</div>
+        </div>
+        <div id="dialogue">
+            <div id="character-image"></div>
+            <div id="character-speech" class="speech-bubble"></div>
+            <div id="user-options"></div>
+        </div>
+        <div id="congratulation">
+            <div class="speech-bubble">Congratulations! You have completed all guides. Your journey continues...</div>
+            <a href="universe.html?name=" + encodeURIComponent(document.getElementById('name-input').value) class="button">Enter the Universe</a>
+        </div>
+    </div>
+
+    <script>
+        let currentCharacter = '';
+        let terminalIndex = 0;
+        let questionIndex = 0;
+        let completedCharacters = [];
+        const terminalMessage = "Initializing... Loading parallel universe... Access granted. Are You Ready to Play A Game?";
+
+        const dialogues = {
+            Hans: [
+                { question: "What's the origin of Earl Grey?", options: ["India", "China", "England"], correct: "England" },
+                { question: "What type of tea is typically used in Earl Grey?", options: ["Black", "Green", "Oolong"], correct: "Black" },
+                { question: "Who is credited with inventing Earl Grey?", options: ["A British Prime Minister", "A Chinese Emperor", "A French Chef"], correct: "A British Prime Minister" }
+            ],
+            Milo: [
+                { question: "What's Milo's favorite herb?", options: ["Mint", "Basil", "Lavender"], correct: "Mint" },
+                { question: "What garden does Milo tend to?", options: ["Herb garden", "Tea garden", "Flower garden"], correct: "Herb garden" },
+                { question: "What philosophies does Milo study?", options: ["Taoism and Christianity", "Buddhism and Islam", "Hinduism and Judaism"], correct: "Taoism and Christianity" }
+            ],
+            Miki: [
+                { question: "What is the origin of the Bengal cat?", options: ["Asia", "Africa", "Europe"], correct: "Asia" },
+                { question: "What breed is known for its spotted coat like a leopard?", options: ["Tabby", "Bengal", "Bombay"], correct: "Bengal" },
+                { question: "Which cat breed has a 'tortoiseshell' pattern?", options: ["Siamese", "Tortoiseshell", "Persian"], correct: "Tortoiseshell" }
+            ],
+            Star: [
+                { question: "What is the cafe's specialty drink?", options: ["Coffee", "Tea", "Smoothie"], correct: "Tea" },
+                { question: "Who owns the cafe?", options: ["Chari", "Star", "Hans"], correct: "Star" },
+                { question: "What animals are associated with the cafe?", options: ["Dogs", "Cats", "Rats"], correct: "Rats" }
+            ],
+            Chari: [
+                { question: "What does Chari know a lot about?", options: ["The cafe", "Tea", "Cats"], correct: "The cafe" },
+                { question: "Who is Chari's elder sister?", options: ["Miki", "Star", "Yeshua"], correct: "Star" },
+                { question: "What pet does Chari own?", options: ["Cat", "Rat", "Dog"], correct: "Rat" }
+            ],
+            Yeshua: [
+                { question: "What role does Yeshua play?", options: ["Gate Keeper", "Tea Snob", "Singer"], correct: "Gate Keeper" },
+                { question: "What is Yeshua known as?", options: ["Redeemer of Sins", "Vampire", "Rocker"], correct: "Redeemer of Sins" },
+                { question: "In what universe is Yeshua?", options: ["Parallel", "Earth", "Mars"], correct: "Parallel" }
+            ]
+        };
+
+        const images = {
+            Hans: "https://via.placeholder.com/100x100?text=Hans",
+            Milo: "https://via.placeholder.com/100x100?text=Milo",
+            Miki: "https://via.placeholder.com/100x100?text=Miki",
+            Star: "https://via.placeholder.com/100x100?text=Star",
+            Chari: "https://via.placeholder.com/100x100?text=Chari",
+            Yeshua: "https://via.placeholder.com/100x100?text=Yeshua"
+        };
+
+        function startTerminal() {
+            document.getElementById('cover').style.display = 'none';
+            document.getElementById('terminal').style.display = 'flex';
+            typeTerminal();
+        }
+
+        function typeTerminal() {
+            if (terminalIndex < terminalMessage.length) {
+                document.getElementById('terminal-text').innerHTML += terminalMessage.charAt(terminalIndex);
+                terminalIndex++;
+                setTimeout(typeTerminal, 50);
+            }
+        }
+
+        function handleYes() {
+            document.getElementById('terminal').style.display = 'none';
+            document.getElementById('signup').style.display = 'flex';
+            document.getElementById('signup-text').innerHTML = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
+        }
+
+        function handleNo() {
+            document.getElementById('terminal-text').innerHTML = 'Very well then, Good Bye for Now.';
+            setTimeout(() => location.reload(), 2000);
+        }
+
+        function enterGame() {
+            const name = document.getElementById('name-input').value;
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+            if (name && email && password) {
+                document.getElementById('signup').style.display = 'none';
+                document.getElementById('game-entry').style.display = 'flex';
+                setTimeout(() => document.getElementById('game-entry').classList.add('open'), 100);
+                setTimeout(() => document.getElementById('character-selection').style.display = 'flex', 2000);
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        function selectCharacter(character) {
+            if (completedCharacters.includes(character)) return;
+            currentCharacter = character;
+            questionIndex = 0;
+            document.getElementById('character-selection').style.display = 'none';
+            document.getElementById('story').classList.add('fade-out');
+            document.getElementById('instructions').style.display = 'none';
+            document.getElementById('dialogue').style.display = 'flex';
+            document.getElementById('character-image').style.backgroundImage = `url(${images[character]})`;
+            startDialogue(character);
+        }
+
+        function startDialogue(character) {
+            const dialogue = dialogues[character][questionIndex];
+            document.getElementById('character-speech').innerHTML = dialogue.question;
+            document.getElementById('user-options').innerHTML = dialogue.options.map(option => 
+                `<button class="button option" onclick="respond('${option}')">${option}</button>`
+            ).join('');
+        }
+
+        function respond(answer) {
+            const dialogue = dialogues[currentCharacter][questionIndex];
+            if (answer === dialogue.correct) {
+                document.getElementById('character-speech').innerHTML = 'Correct! Well done.';
+            } else {
+                document.getElementById('character-speech').innerHTML = `Incorrect. The answer is ${dialogue.correct}.`;
+            }
+            questionIndex++;
+            if (questionIndex < dialogues[currentCharacter].length) {
+                setTimeout(() => startDialogue(currentCharacter), 2000);
+            } else {
+                completedCharacters.push(currentCharacter);
+                document.getElementById(`char-${currentCharacter}`).classList.add('completed');
+                document.getElementById('dialogue').style.display = 'none';
+                document.getElementById('character-selection').style.display = 'flex';
+                if (completedCharacters.length === 6) {
+                    document.getElementById('character-selection').style.display = 'none';
+                    document.getElementById('congratulation').style.display = 'flex';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
