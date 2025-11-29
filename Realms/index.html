@@ -304,16 +304,21 @@
             }
         }
 
-        function handleYes() {
-            document.getElementById('terminal').style.display = 'none';
-            document.getElementById('signup').style.display = 'flex';
-            const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
-            document.getElementById('signup-text').innerHTML = signupText;
-            // Speak the text with android voice
-            speakText(signupText);
-            // Stop the terminal audio when moving to sign-up
-            terminalAudio.pause();
-            terminalAudio.currentTime = 0;
+     function handleYes() {
+    document.getElementById('terminal').style.display = 'none';
+    document.getElementById('signup').style.display = 'flex';
+    // Delay the text and speech by 3 seconds to sync with audio
+    setTimeout(() => {
+        const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
+        document.getElementById('signup-text').innerHTML = signupText;
+        document.getElementById('signup-text').classList.add('fade-in'); // Add fade-in class
+        // Speak the text with android voice
+        speakText(signupText);
+    }, 3000); // 3-second delay
+    // Stop the terminal audio when moving to sign-up
+    terminalAudio.pause();
+    terminalAudio.currentTime = 0;
+}
         }
 
         function handleNo() {
