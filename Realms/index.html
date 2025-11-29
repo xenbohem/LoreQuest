@@ -125,11 +125,28 @@
             width: 300px;
             font-family: inherit;
         }
-
-        /* Fade-in animation for sign-up text */
-.fade-in {
+/* Slow fade-in animation for the entire sign-up section */
+#signup {
     opacity: 0;
-    animation: fadeIn 2s ease-in forwards;
+    transition: opacity 10s ease-in; /* 10-second fade to match audio */
+}
+
+#signup.fade-in {
+    opacity: 1;
+}
+
+/* Optional: Stagger individual elements if needed */
+#signup-text {
+    transition-delay: 0s;
+}
+
+input {
+    transition-delay: 1s; /* Inputs fade in 1 second after text */
+}
+
+#signup button {
+    transition-delay: 2s; /* Button fades in 2 seconds after inputs */
+}
 }
 
 @keyframes fadeIn {
