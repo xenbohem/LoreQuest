@@ -1,5 +1,5 @@
-<!DOCTYPE html> 
-<html lang="en">   
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,6 @@
             align-items: center;
             transition: all 0.5s ease;
         }
-}
 
         /* Starstructure Background */
         body::before {
@@ -114,6 +113,24 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            opacity: 0;
+            transition: opacity 10s ease-in; /* 10-second fade to match audio */
+        }
+
+        #signup.fade-in {
+            opacity: 1;
+        }
+
+        #signup-text {
+            transition-delay: 0s;
+        }
+
+        input {
+            transition-delay: 1s; /* Inputs fade in 1 second after text */
+        }
+
+        #signup button {
+            transition-delay: 2s; /* Button fades in 2 seconds after inputs */
         }
 
         input {
@@ -125,35 +142,7 @@
             width: 300px;
             font-family: inherit;
         }
-/* Slow fade-in animation for the entire sign-up section */
-#signup {
-    opacity: 0;
-    transition: opacity 10s ease-in; /* 10-second fade to match audio */
-}
 
-#signup.fade-in {
-    opacity: 1;
-}
-
-/* Optional: Stagger individual elements if needed */
-#signup-text {
-    transition-delay: 0s;
-}
-
-input {
-    transition-delay: 1s; /* Inputs fade in 1 second after text */
-}
-
-#signup button {
-    transition-delay: 2s; /* Button fades in 2 seconds after inputs */
-}
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
         /* Game Entry */
         #game-entry {
             display: none;
@@ -304,7 +293,7 @@ input {
 
     <!-- Hidden Audio for Terminal Sequence -->
     <audio id="terminal-audio" preload="auto">
-        <source src="sequence.paralleluniverse.mp3" type="audio/mpeg">
+        <source src="Stage1.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -313,7 +302,7 @@ input {
         let terminalIndex = 0;
         let questionIndex = 0;
         let completedCharacters = [];
-        const terminalMessage = "Initializing... Loading Parallel Universe... Access Permited. Are You Ready to Play A Game?";
+        const terminalMessage = "Initializing... Loading Parallel Universe... Access Granted. Are You Ready to Play A Game?";
         const terminalAudio = document.getElementById('terminal-audio');
 
         function startTerminal() {
@@ -332,21 +321,21 @@ input {
                 setTimeout(typeTerminal, 50);
             }
         }
-function handleYes() {
-    document.getElementById('terminal').style.display = 'none';
-    document.getElementById('signup').style.display = 'flex';
-    // Delay the entire sign-up fade-in by 3 seconds
-    setTimeout(() => {
-        document.getElementById('signup').classList.add('fade-in'); // Fade in the whole section
-        const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
-        document.getElementById('signup-text').innerHTML = signupText;
-        // Speak the text with android voice immediately
-        speakText(signupText);
-    }, 3000); // 3-second delay before starting fade
-    // Stop the terminal audio when moving to sign-up
-    terminalAudio.pause();
-    terminalAudio.currentTime = 0;
-}
+
+        function handleYes() {
+            document.getElementById('terminal').style.display = 'none';
+            document.getElementById('signup').style.display = 'flex';
+            // Delay the entire sign-up fade-in by 3 seconds
+            setTimeout(() => {
+                document.getElementById('signup').classList.add('fade-in'); // Fade in the whole section
+                const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
+                document.getElementById('signup-text').innerHTML = signupText;
+                // Speak the text with android voice immediately
+                speakText(signupText);
+            }, 3000); // 3-second delay before starting fade
+            // Stop the terminal audio when moving to sign-up
+            terminalAudio.pause();
+            terminalAudio.currentTime = 0;
         }
 
         function handleNo() {
@@ -454,6 +443,7 @@ function handleYes() {
                 { question: "How did I get the lavender stripe in my white hair, tied to cafe lore?", options: ["From a special brew accident", "From Chimera Cat magic", "From Yeshua's blessing"], correct: "From a special brew accident" },
                 { question: "As the quiet genius of the cafe, what's my favorite special tea for anxious souls?", options: ["Calming Chamomile", "Rat Root Remedy", "Lavender Elixir"], correct: "Lavender Elixir" }
             ],
+
             Yeshua: [
                 { question: "What role does Yeshua play?", options: ["Gate Keeper", "Tea Snob", "Singer"], correct: "Gate Keeper" },
                 { question: "What is Yeshua known as?", options: ["Redeemer of Sins", "Vampire", "Rocker"], correct: "Redeemer of Sins" },
