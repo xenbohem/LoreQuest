@@ -245,6 +245,44 @@
             flex-direction: column;
             align-items: center;
         }
+        /* (Keep all existing styles here) */
+
+/* Sound Visualizer */
+#visualizer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.bar {
+    width: 10px;
+    height: 20px;
+    background: linear-gradient(90deg, #007BA7, #6495ED);
+    margin: 0 5px;
+    border-radius: 5px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.bar:nth-child(1) { animation-delay: 0s; }
+.bar:nth-child(2) { animation-delay: 0.2s; }
+.bar:nth-child(3) { animation-delay: 0.4s; }
+.bar:nth-child(4) { animation-delay: 0.6s; }
+.bar:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes pulse {
+    0%, 100% { height: 20px; }
+    50% { height: 60px; }
+}
+
+/* Cover Text */
+#cover-text {
+    font-size: 1.2em;
+    text-align: center;
+}
+
     </style>
 </head>
 <body>
