@@ -137,7 +137,7 @@
             align-items: center;
             flex-direction: column;
             opacity: 0;
-            transition: opacity 10s ease-in; /* 10-second fade to match audio */
+            transition: opacity 2s ease-in; /* 2-second fade to match audio */
         }
 
         #signup.fade-in {
@@ -149,7 +149,7 @@
         }
 
         input {
-            transition-delay: 1s; /* Inputs fade in 1 second after text */
+            transition-delay: 2s; /* Inputs fade in 1 second after text */
         }
 
         #signup button {
@@ -226,7 +226,7 @@
             padding: 10px;
             border: 1px solid #007BA7;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background 0.2s ease;
         }
 
         .character:hover {
@@ -366,18 +366,18 @@
         function handleYes() {
             document.getElementById('terminal').style.display = 'none';
             document.getElementById('signup').style.display = 'flex';
-            // Delay the loading bar and audio by 3 seconds
+            // Delay the loading bar and audio by 2 seconds
             setTimeout(() => {
                 startLoadingBar(); // Start the progress bar
                 const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
                 // Speak the text with android voice
                 speakText(signupText);
-                // After 10 seconds, fade in the content
+                // After 2 seconds, fade in the content
                 setTimeout(() => {
                     document.getElementById('signup').classList.add('fade-in');
                     document.getElementById('signup-text').innerHTML = signupText;
-                }, 10000); // 10 seconds for audio sync
-            }, 3000); // 3-second delay
+                }, 10000); // 2 seconds for audio sync
+            }, 3000); // 2-second delay
             // Stop the terminal audio when moving to sign-up
             terminalAudio.pause();
             terminalAudio.currentTime = 0;
