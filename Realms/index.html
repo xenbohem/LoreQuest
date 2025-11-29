@@ -308,16 +308,15 @@
         let completedCharacters = [];
         const terminalMessage = "Initializing... Loading Parallel Universe... Access Granted. Are You Ready to Play A Game?";
         const terminalAudio = document.getElementById('terminal-audio');
-
-        function startTerminal() {
-            document.getElementById('cover').style.display = 'none';
-            document.getElementById('terminal').style.display = 'flex';
-            // Play the track automatically
-            terminalAudio.volume = 0.3; // Low volume for ambiance
-            terminalAudio.play().catch(e => console.log('Autoplay blocked:', e)); // Handle browser restrictions
-            typeTerminal();
-        }
-
+        
+function startTerminal() {
+    document.getElementById('cover').style.display = 'none';
+    document.getElementById('terminal').style.display = 'flex';
+    // Play the track automatically
+    terminalAudio.volume = 0.3;
+    terminalAudio.play().catch(e => console.log('Autoplay blocked:', e));
+    typeTerminal();
+}
         function typeTerminal() {
             if (terminalIndex < terminalMessage.length) {
                 document.getElementById('terminal-text').innerHTML += terminalMessage.charAt(terminalIndex);
