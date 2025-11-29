@@ -273,7 +273,7 @@
         </div>
     </div>
 
-   <script>
+  <script>
     let currentCharacter = '';
     let terminalIndex = 0;
     let questionIndex = 0;
@@ -284,8 +284,9 @@
     function startTerminal() {
         document.getElementById('cover').style.display = 'none';
         document.getElementById('terminal').style.display = 'flex';
-        terminalAudio.volume = 0.3;
-        terminalAudio.play().catch(e => console.log('Autoplay blocked:', e));
+        // Play the track automatically
+        terminalAudio.volume = 0.3; // Low volume for ambiance
+        terminalAudio.play().catch(e => console.log('Autoplay blocked:', e)); // Handle browser restrictions
         typeTerminal();
     }
 
@@ -304,6 +305,7 @@
         document.getElementById('signup-text').innerHTML = signupText;
         // Speak the text with android voice
         speakText(signupText);
+        // Stop the terminal audio when moving to sign-up
         terminalAudio.pause();
         terminalAudio.currentTime = 0;
     }
@@ -311,6 +313,7 @@
     function handleNo() {
         document.getElementById('terminal-text').innerHTML = 'Very well then, Good Bye for Now.';
         setTimeout(() => location.reload(), 2000);
+        // Stop audio on exit
         terminalAudio.pause();
     }
 
@@ -370,7 +373,7 @@
         }
     }
 
-    // New function for text-to-speech
+    // Function for text-to-speech
     function speakText(text) {
         if ('speechSynthesis' in window) {
             const utterance = new SpeechSynthesisUtterance(text);
@@ -387,11 +390,45 @@
     }
 
     const dialogues = {
-        // ... (same as before)
+        Hans: [
+            { question: "In this parallel universe, what do we 'steep' in to bridge the living and dead?", options: ["Tea leaves", "Cat fur", "Rat tails"], correct: "Tea leaves" },
+            { question: "As a British tea snob, what's my favorite blend, inspired by Parisian elegance?", options: ["Earl Grey", "Chamomile", "Green Tea"], correct: "Earl Grey" },
+            { question: "Why do I quiz you on tea history in this afterlife interim?", options: ["To brew wisdom", "To scare away rats", "To impress Miki"], correct: "To brew wisdom" }
+        ],
+        Milo: [
+            { question: "What's Milo's favorite herb?", options: ["Mint", "Basil", "Lavender"], correct: "Mint" },
+            { question: "What garden does Milo tend to?", options: ["Herb garden", "Tea garden", "Flower garden"], correct: "Herb garden" },
+            { question: "What philosophies does Milo study?", options: ["Taoism and Christianity", "Buddhism and Islam", "Hinduism and Judaism"], correct: "Taoism and Christianity" }
+        ],
+        Miki: [
+            { question: "What Chimera Cats roam this parallel universe cafe?", options: ["Bengal blends", "Tabby spirits", "Bombay ghosts"], correct: "Bengal blends" },
+            { question: "As a Parisian rocker, what's my anthem for cat activism?", options: ["Purr-fect Revolution", "Meow-tastic Mayhem", "Feline Fury"], correct: "Purr-fect Revolution" },
+            { question: "Why do I quiz you on cats in this afterlife interim?", options: ["To claw back lore", "To hiss at boredom", "To honor the cafe"], correct: "To honor the cafe" }
+        ],
+        Star: [
+            { question: "In the parallel universe cafe, what brew calms Chari's anxieties from lab experiments?", options: ["Lavender Tea", "Rat Root Brew", "Catnip Chai"], correct: "Lavender Tea" },
+            { question: "As cafe owner and Chari's sister, what's my motto for this afterlife spot?", options: ["Brew or Bust", "Tea and Tranquility", "Sips from the Beyond"], correct: "Sips from the Beyond" },
+            { question: "Why do I quiz you on the cafe in this interim realm?", options: ["To keep the family legacy", "To outsmart Hans", "To redeem lost souls"], correct: "To keep the family legacy" }
+        ],
+        Chari: [
+            { question: "What color is my support rat, a gift from the lab experiments that haunt me?", options: ["White with lavender stripe", "Black with red eyes", "Gray with blue spots"], correct: "White with lavender stripe" },
+            { question: "How did I get the lavender stripe in my white hair, tied to cafe lore?", options: ["From a special brew accident", "From Chimera Cat magic", "From Yeshua's blessing"], correct: "From a special brew accident" },
+            { question: "As the quiet genius of the cafe, what's my favorite special tea for anxious souls?", options: ["Calming Chamomile", "Rat Root Remedy", "Lavender Elixir"], correct: "Lavender Elixir" }
+        ],
+        Yeshua: [
+            { question: "What role does Yeshua play?", options: ["Gate Keeper", "Tea Snob", "Singer"], correct: "Gate Keeper" },
+            { question: "What is Yeshua known as?", options: ["Redeemer of Sins", "Vampire", "Rocker"], correct: "Redeemer of Sins" },
+            { question: "In what universe is Yeshua?", options: ["Parallel", "Earth", "Mars"], correct: "Parallel" }
+        ]
     };
 
     const images = {
-        // ... (same as before)
+        Hans: "https://via.placeholder.com/100x100?text=Hans",
+        Milo: "https://via.placeholder.com/100x100?text=Milo",
+        Miki: "https://via.placeholder.com/100x100?text=Miki",
+        Star: "https://via.placeholder.com/100x100?text=Star",
+        Chari: "https://via.placeholder.com/100x100?text=Chari",
+        Yeshua: "https://via.placeholder.com/100x100?text=Yeshua"
     };
 </script>
 </body>
