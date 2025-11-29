@@ -273,135 +273,126 @@
         </div>
     </div>
 
-    <script>
-        let currentCharacter = '';
-        let terminalIndex = 0;
-        let questionIndex = 0;
-        let completedCharacters = [];
-        const terminalMessage = "Initializing... Loading parallel universe... Access granted. Are You Ready to Play A Game?";
+   <script>
+    let currentCharacter = '';
+    let terminalIndex = 0;
+    let questionIndex = 0;
+    let completedCharacters = [];
+    const terminalMessage = "Initializing... Loading Parallel Universe... Access Granted. Are You Ready to Play A Game?";
+    const terminalAudio = document.getElementById('terminal-audio');
 
-       const dialogues = {
-    Hans: [
-        { question: "In this parallel universe, what do we 'steep' in to remain in our universe?", options: ["Imagination", "Tea", "Coffee"], correct: "Imagination" },
-        { question: "As a British tea snob, what's my favorite blend, inspired by Parisian elegance?", options: ["Earl Grey", "Chamomile", "Green Tea"], correct: "Earl Grey" },
-        { question: "Why do I quiz you on tea history in this afterlife interim?", options: ["To brew wisdom", "To scare away rats", "To impress Miki"], correct: "To brew wisdom" }
-    ],
-    Milo: [
-        { question: "What's Milo's favorite herb?", options: ["Mint", "Basil", "Lavender"], correct: "Mint" },
-        { question: "What garden does Milo tend to?", options: ["Herb garden", "Tea garden", "Flower garden"], correct: "Herb garden" },
-        { question: "What philosophies does Milo study?", options: ["Taoism and Christianity", "Buddhism and Islam", "Hinduism and Judaism"], correct: "Taoism and Christianity" }
-    ],
-    Miki: [
-        { question: "What Chimera Cats roam this parallel universe cafe?", options: ["Bengal blends", "Tabby spirits", "Bombay ghosts"], correct: "Bengal blends" },
-        { question: "As a Parisian rocker, what's my anthem for cat activism?", options: ["Purr-fect Revolution", "Meow-tastic Mayhem", "Feline Fury"], correct: "Purr-fect Revolution" },
-        { question: "Why do I quiz you on cats in this afterlife interim?", options: ["To claw back lore", "To hiss at boredom", "To honor the cafe"], correct: "To honor the cafe" }
-    ],
-    Star: [
-        { question: "In the parallel universe cafe, what brew calms Chari's anxieties from lab experiments?", options: ["Lavender Tea", "Rat Root Brew", "Catnip Chai"], correct: "Lavender Tea" },
-        { question: "As cafe owner and Chari's sister, what's my motto for this afterlife spot?", options: ["Brew or Bust", "Tea and Tranquility", "Sips from the Beyond"], correct: "Sips from the Beyond" },
-        { question: "Why do I quiz you on the cafe in this interim realm?", options: ["To keep the family legacy", "To outsmart Hans", "To redeem lost souls"], correct: "To keep the family legacy" }
-    ],
-    Chari: [
-        { question: "What color is my support rat, a gift from the lab experiments that haunt me?", options: ["White with lavender stripe", "Black with red eyes", "Gray with blue spots"], correct: "White with lavender stripe" },
-        { question: "How did I get the lavender stripe in my white hair, tied to cafe lore?", options: ["From an experimental lab accident", "From Chimera Cat magic", "From Yeshua's blessing"], correct: "From an experimental lab accident" },
-        { question: "As the quiet genius of the cafe, what's my favorite special tea for anxious souls?", options: ["Calming Chamomile", "Rat Root Remedy", "Lavender Elixir"], correct: "Lavender Elixir" }
-    ],
-    Yeshua: [
-        { question: "What role does Yeshua play?", options: ["Gate Keeper", "Tea Snob", "Singer"], correct: "Gate Keeper" },
-        { question: "What is Yeshua known as?", options: ["Redeemer of Sins", "Vampire", "Rocker"], correct: "Redeemer of Sins" },
-        { question: "In what universe is Yeshua?", options: ["Parallel", "Earth", "Mars"], correct: "Parallel" }
-    ]
-};
+    function startTerminal() {
+        document.getElementById('cover').style.display = 'none';
+        document.getElementById('terminal').style.display = 'flex';
+        terminalAudio.volume = 0.3;
+        terminalAudio.play().catch(e => console.log('Autoplay blocked:', e));
+        typeTerminal();
+    }
 
-        const images = {
-            Hans: "images/Hans.jpeg",
-            Milo: "images/Milo.jpeg",
-            Miki: "images/Miki.jpeg",
-            Star: "images/Star.jpeg",
-            Chari: "images/Chari.jpeg",
-            Yeshua: "images/Yeshua.jpeg"
-        };
-
-        function startTerminal() {
-            document.getElementById('cover').style.display = 'none';
-            document.getElementById('terminal').style.display = 'flex';
-            typeTerminal();
+    function typeTerminal() {
+        if (terminalIndex < terminalMessage.length) {
+            document.getElementById('terminal-text').innerHTML += terminalMessage.charAt(terminalIndex);
+            terminalIndex++;
+            setTimeout(typeTerminal, 50);
         }
+    }
 
-        function typeTerminal() {
-            if (terminalIndex < terminalMessage.length) {
-                document.getElementById('terminal-text').innerHTML += terminalMessage.charAt(terminalIndex);
-                terminalIndex++;
-                setTimeout(typeTerminal, 50);
+    function handleYes() {
+        document.getElementById('terminal').style.display = 'none';
+        document.getElementById('signup').style.display = 'flex';
+        const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
+        document.getElementById('signup-text').innerHTML = signupText;
+        // Speak the text with android voice
+        speakText(signupText);
+        terminalAudio.pause();
+        terminalAudio.currentTime = 0;
+    }
+
+    function handleNo() {
+        document.getElementById('terminal-text').innerHTML = 'Very well then, Good Bye for Now.';
+        setTimeout(() => location.reload(), 2000);
+        terminalAudio.pause();
+    }
+
+    function enterGame() {
+        const name = document.getElementById('name-input').value;
+        const email = document.getElementById('email-input').value;
+        const password = document.getElementById('password-input').value;
+        if (name && email && password) {
+            document.getElementById('signup').style.display = 'none';
+            document.getElementById('game-entry').style.display = 'flex';
+            setTimeout(() => document.getElementById('game-entry').classList.add('open'), 100);
+            setTimeout(() => document.getElementById('character-selection').style.display = 'flex', 2000);
+        } else {
+            alert('Please fill in all fields.');
+        }
+    }
+
+    function selectCharacter(character) {
+        if (completedCharacters.includes(character)) return;
+        currentCharacter = character;
+        questionIndex = 0;
+        document.getElementById('character-selection').style.display = 'none';
+        document.getElementById('story').classList.add('fade-out');
+        document.getElementById('instructions').style.display = 'none';
+        document.getElementById('dialogue').style.display = 'flex';
+        document.getElementById('character-image').style.backgroundImage = `url(${images[character]})`;
+        startDialogue(character);
+    }
+
+    function startDialogue(character) {
+        const dialogue = dialogues[character][questionIndex];
+        document.getElementById('character-speech').innerHTML = dialogue.question;
+        document.getElementById('user-options').innerHTML = dialogue.options.map(option => 
+            `<button class="button option" onclick="respond('${option}')">${option}</button>`
+        ).join('');
+    }
+
+    function respond(answer) {
+        const dialogue = dialogues[currentCharacter][questionIndex];
+        if (answer === dialogue.correct) {
+            document.getElementById('character-speech').innerHTML = 'Correct! Well done.';
+        } else {
+            document.getElementById('character-speech').innerHTML = `Incorrect. The answer is ${dialogue.correct}.`;
+        }
+        questionIndex++;
+        if (questionIndex < dialogues[currentCharacter].length) {
+            setTimeout(() => startDialogue(currentCharacter), 2000);
+        } else {
+            completedCharacters.push(currentCharacter);
+            document.getElementById(`char-${currentCharacter}`).classList.add('completed');
+            document.getElementById('dialogue').style.display = 'none';
+            document.getElementById('character-selection').style.display = 'flex';
+            if (completedCharacters.length === 6) {
+                document.getElementById('character-selection').style.display = 'none';
+                document.getElementById('congratulation').style.display = 'flex';
             }
         }
+    }
 
-        function handleYes() {
-            document.getElementById('terminal').style.display = 'none';
-            document.getElementById('signup').style.display = 'flex';
-            document.getElementById('signup-text').innerHTML = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
+    // New function for text-to-speech
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            // Set android-like voice (robotic, slightly higher pitch)
+            utterance.rate = 1.1; // Slightly faster
+            utterance.pitch = 1.2; // Slightly higher pitch for android feel
+            utterance.volume = 0.8;
+            // Try to select a robotic voice if available
+            const voices = speechSynthesis.getVoices();
+            const androidVoice = voices.find(voice => voice.name.includes('Google') && voice.lang.includes('en')) || voices[0];
+            if (androidVoice) utterance.voice = androidVoice;
+            speechSynthesis.speak(utterance);
         }
+    }
 
-        function handleNo() {
-            document.getElementById('terminal-text').innerHTML = 'Very well then, Good Bye for Now.';
-            setTimeout(() => location.reload(), 2000);
-        }
+    const dialogues = {
+        // ... (same as before)
+    };
 
-        function enterGame() {
-            const name = document.getElementById('name-input').value;
-            const email = document.getElementById('email-input').value;
-            const password = document.getElementById('password-input').value;
-            if (name && email && password) {
-                document.getElementById('signup').style.display = 'none';
-                document.getElementById('game-entry').style.display = 'flex';
-                setTimeout(() => document.getElementById('game-entry').classList.add('open'), 100);
-                setTimeout(() => document.getElementById('character-selection').style.display = 'flex', 2000);
-            } else {
-                alert('Please fill in all fields.');
-            }
-        }
-
-        function selectCharacter(character) {
-            if (completedCharacters.includes(character)) return;
-            currentCharacter = character;
-            questionIndex = 0;
-            document.getElementById('character-selection').style.display = 'none';
-            document.getElementById('story').classList.add('fade-out');
-            document.getElementById('instructions').style.display = 'none';
-            document.getElementById('dialogue').style.display = 'flex';
-            document.getElementById('character-image').style.backgroundImage = `url(${images[character]})`;
-            startDialogue(character);
-        }
-
-        function startDialogue(character) {
-            const dialogue = dialogues[character][questionIndex];
-            document.getElementById('character-speech').innerHTML = dialogue.question;
-            document.getElementById('user-options').innerHTML = dialogue.options.map(option => 
-                `<button class="button option" onclick="respond('${option}')">${option}</button>`
-            ).join('');
-        }
-
-        function respond(answer) {
-            const dialogue = dialogues[currentCharacter][questionIndex];
-            if (answer === dialogue.correct) {
-                document.getElementById('character-speech').innerHTML = 'Correct! Well done.';
-            } else {
-                document.getElementById('character-speech').innerHTML = `Incorrect. The answer is ${dialogue.correct}.`;
-            }
-            questionIndex++;
-            if (questionIndex < dialogues[currentCharacter].length) {
-                setTimeout(() => startDialogue(currentCharacter), 2000);
-            } else {
-                completedCharacters.push(currentCharacter);
-                document.getElementById(`char-${currentCharacter}`).classList.add('completed');
-                document.getElementById('dialogue').style.display = 'none';
-                document.getElementById('character-selection').style.display = 'flex';
-                if (completedCharacters.length === 6) {
-                    document.getElementById('character-selection').style.display = 'none';
-                    document.getElementById('congratulation').style.display = 'flex';
-                }
-            }
-        }
-    </script>
+    const images = {
+        // ... (same as before)
+    };
+</script>
 </body>
 </html>
