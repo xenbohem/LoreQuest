@@ -321,22 +321,25 @@
                 setTimeout(typeTerminal, 50);
             }
         }
-
-        function handleYes() {
-            document.getElementById('terminal').style.display = 'none';
-            document.getElementById('signup').style.display = 'flex';
-            // Delay the entire sign-up fade-in by 3 seconds
-            setTimeout(() => {
-                document.getElementById('signup').classList.add('fade-in'); // Fade in the whole section
-                const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
-                document.getElementById('signup-text').innerHTML = signupText;
-                // Speak the text with android voice immediately
-                speakText(signupText);
-            }, 3000); // 3-second delay before starting fade
-            // Stop the terminal audio when moving to sign-up
-            terminalAudio.pause();
-            terminalAudio.currentTime = 0;
-        }
+function handleYes() {
+    document.getElementById('terminal').style.display = 'none';
+    document.getElementById('signup').style.display = 'flex';
+    // Delay the loading bar and audio by 3 seconds
+    setTimeout(() => {
+        startLoadingBar(); // Start the progress bar
+        const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
+        // Speak the text with android voice
+        speakText(signupText);
+        // After 10 seconds, fade in the content
+        setTimeout(() => {
+            document.getElementById('signup').classList.add('fade-in');
+            document.getElementById('signup-text').innerHTML = signupText;
+        }, 10000); // 10 seconds for audio sync
+    }, 3000); // 3-second delay
+    // Stop the terminal audio when moving to sign-up
+    terminalAudio.pause();
+    terminalAudio.currentTime = 0;
+}
 
         function handleNo() {
             document.getElementById('terminal-text').innerHTML = 'Very well then, Good Bye for Now.';
