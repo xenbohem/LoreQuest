@@ -315,18 +315,17 @@
                 setTimeout(typeTerminal, 50);
             }
         }
-
-     function handleYes() {
+function handleYes() {
     document.getElementById('terminal').style.display = 'none';
     document.getElementById('signup').style.display = 'flex';
-    // Delay the text and speech by 3 seconds to sync with audio
+    // Delay the entire sign-up fade-in by 3 seconds
     setTimeout(() => {
+        document.getElementById('signup').classList.add('fade-in'); // Fade in the whole section
         const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
         document.getElementById('signup-text').innerHTML = signupText;
-        document.getElementById('signup-text').classList.add('fade-in'); // Add fade-in class
-        // Speak the text with android voice
+        // Speak the text with android voice immediately
         speakText(signupText);
-    }, 3000); // 3-second delay
+    }, 3000); // 3-second delay before starting fade
     // Stop the terminal audio when moving to sign-up
     terminalAudio.pause();
     terminalAudio.currentTime = 0;
