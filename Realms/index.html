@@ -327,6 +327,19 @@ function handleYes() {
     // Delay the loading bar and audio by 3 seconds
     setTimeout(() => {
         startLoadingBar(); // Start the progress bar
+    }
+          function startLoadingBar() {
+    const progressBar = document.getElementById('loading-bar');
+    progressBar.style.display = 'block';
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 1;
+        progressBar.style.width = progress + '%';
+        if (progress >= 100) {
+            clearInterval(interval);
+            progressBar.style.display = 'none'; // Hide bar after completion
+        }
+    }, 100); // Update every 100ms for 10 seconds
         const signupText = 'Great! To give you a personalized experience, what would you like to be called throughout the game?';
         // Speak the text with android voice
         speakText(signupText);
@@ -347,6 +360,8 @@ function handleYes() {
             // Stop audio on exit
             terminalAudio.pause();
         }
+      
+}
 
         function enterGame() {
             const name = document.getElementById('name-input').value;
